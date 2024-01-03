@@ -322,7 +322,7 @@ bool BulletPhysicsManager::attachLinkGeometry(
         visualMeshInfo.type = esp::assets::AssetType::PRIMITIVE;
         // default sphere prim is already constructed w/ radius 1
         visualMeshInfo.filepath = "icosphereSolid_subdivs_1";
-        scale = Mn::Vector3(visual.m_geometry.m_sphereRadius);
+        scale = visual.m_geometry.m_meshScale;
       } break;
       case metadata::URDF::GEOM_MESH: {
         scale = visual.m_geometry.m_meshScale;
@@ -927,8 +927,7 @@ void BulletPhysicsManager::instantiateSkinnedModel(
   assets::RenderAssetInstanceCreationInfo creationInfo;
   creationInfo.filepath = renderAssetPath;
   creationInfo.lightSetupKey = lightSetupKey;
-  creationInfo.scale =
-      artObjAttributes->getUniformScale() * Mn::Vector3(1.f, 1.f, 1.f);
+  creationInfo.scale = artObjAttributes->getScale();
   esp::assets::RenderAssetInstanceCreationInfo::Flags flags;
   flags |= esp::assets::RenderAssetInstanceCreationInfo::Flag::IsRGBD;
   flags |= esp::assets::RenderAssetInstanceCreationInfo::Flag::IsSemantic;
